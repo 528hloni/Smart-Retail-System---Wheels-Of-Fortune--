@@ -1,0 +1,121 @@
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0e0e0e; /* dark background for car showroom feel */
+    color: #f5f5f5;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #ff6600;
+    margin-top: 40px;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-top: 40px;
+    color: #ffffff;
+    border-bottom: 2px solid #ff6600;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+h3 {
+    font-weight: normal;
+    color: #cccccc;
+}
+
+/* ---------- PRODUCT GRID LAYOUT ---------- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 40px 60px;
+    justify-items: center;
+}
+
+/* ---------- PRODUCT LINK ---------- */
+.product-link,
+.product-link:link,
+.product-link:visited,
+.product-link:hover,
+.product-link:active {
+    text-decoration: none !important; /* removes blue underline */
+    color: inherit !important;        /* prevents link color (blue/purple) */
+    display: inline-block;
+}
+
+/* ---------- PRODUCT CARD ---------- */
+.product-card {
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(255, 102, 0, 0.15);
+    overflow: hidden;
+    width: 250px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    border: 1px solid #2b2b2b;
+}
+
+/* ---------- PRODUCT IMAGE ---------- */
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #333;
+}
+
+/* ---------- PRODUCT DETAILS ---------- */
+.product-card h3 {
+    font-size: 1.2rem;
+    margin: 12px 0 6px 0;
+    color: #ffffff;
+}
+
+.product-card p {
+    margin: 4px 0;
+    color: #bbbbbb;
+}
+
+.price {
+    font-weight: bold;
+    color: #ff6600;
+    font-size: 1.1rem;
+    margin-top: 8px;
+}
+
+/* ---------- HOVER EFFECT ---------- */
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 16px rgba(255, 102, 0, 0.25);
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        padding: 20px 30px;
+    }
+
+    .product-card {
+        width: 220px;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .product-grid {
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .product-card {
+        width: 90%;
+    }
+}
