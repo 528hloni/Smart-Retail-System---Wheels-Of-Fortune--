@@ -10,10 +10,11 @@ session_start();
 
 try{
     // fetch data to display in table
-$sql = "SELECT rim_id, rim_name, model, size_inch, price, quantity, image_url FROM rims";
-$stmt = $pdo->query($sql);
-
-//store all students in an array
+$stmt = $pdo->prepare("
+    SELECT rim_id, rim_name, model, size_inch, price, quantity, image_url
+    FROM rims
+");
+$stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //button action
@@ -62,6 +63,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         <input type="submit" name="action" value="Add New Wheel">
         <br><br>
         <input type="text" id="search_input" name="search_input" placeholder="Search Name Or Model...">
+       
+
+
+        
 
     </form>
 
