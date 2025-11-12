@@ -11,17 +11,17 @@ session_start();
 
 try{
     // fetch data to display in table
-$sql = "SELECT 
-            p.payment_id,
-            p.order_id,
-            CONCAT(u.name, ' ', u.surname) AS customer,
-            p.amount,
-            p.method
-        FROM payments p
-        JOIN orders o ON p.order_id = o.order_id
-        JOIN users u ON o.user_id = u.user_id
-        ORDER BY p.payment_id 
-    ";
+$sql  = "SELECT 
+                p.payment_id,
+                p.order_id,
+                CONCAT(u.name, ' ', u.surname) AS customer,
+                p.amount,
+                p.method
+            FROM payments p
+            JOIN orders o ON p.order_id = o.order_id
+            JOIN users u ON o.user_id = u.user_id
+            WHERE p.status = 'Pending'
+            ORDER BY p.payment_id";
 $stmt = $pdo->query($sql);
 
  // If this is an AJAX request, return JSON

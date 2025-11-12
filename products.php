@@ -1,7 +1,51 @@
-<?php
-include('connection.php');
-?>
+ <?php
+  
+ include('connection.php');
+session_start();
 
+
+if (!isset($_SESSION['loggedin']) || ($_SESSION['role'] !== 'Customer' && $_SESSION['role'] !== 'Payment Processor' && $_SESSION['role'] !== 'Inventory Manager' && $_SESSION['role'] !== 'Sales Associate')) {
+    header("Location: login.php");
+    exit();
+}
+
+try{
+
+//Getting user_id from URL and validating it (using GET method)
+if (isset($_GET['user_id']) && is_numeric($_GET['user_id'])) {
+    $user_id = trim($_GET['user_id']);
+
+    // Fetching customer
+ $stmt = $pdo->prepare("SELECT * FROM users WHERE user_id = ?");
+    $stmt->execute([$user_id]);
+    $customer = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$customer) {
+        echo "Customer not found.";
+        exit();
+    }
+} else {
+    echo "Invalid request.";
+    exit();
+}
+
+// Fetch all rims (product list)
+    $sql = "SELECT * FROM rims";
+    $stmt = $pdo->query($sql);
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+}  catch (Exception $e) {
+    // General error handler
+    echo "Error: " . $e->getMessage();
+}
+
+
+
+
+
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,12 +65,9 @@ include('connection.php');
 
     <div class="product-grid">
         <?php
-        $sql = "SELECT * FROM rims";
-        $stmt = $pdo->query($sql);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        
         foreach ($results as $row): ?>
-    <a href="product_details.php?rim_id=<?= $row['rim_id'] ?>" class="product-link">
+    <a href="product_details.php?rim_id=<?= $row['rim_id'] ?>&user_id=<?= $user_id ?>" class="product-link">    
         <div class="product-card"> 
             <img src="<?= $row['image_url'] ?>" alt="<?= $row['rim_name'] ?>"> 
             <h3><?= $row['rim_name'] ?></h3>

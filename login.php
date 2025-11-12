@@ -44,7 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             header('Location: pp_dashboard.php');
             exit();
         } elseif ($role === 'Customer') {
-            header('Location: products.php?user_id=' . $user['user_id']);
+            header('Location: customer_dashboard.php?user_id=' . $user['user_id']);
+            
             exit();
         }
 

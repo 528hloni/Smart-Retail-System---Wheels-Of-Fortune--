@@ -61,14 +61,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     }
 
     if ($action === 'Yes-Received') {
-        header('Location: ' . $_SERVER['PHP_SELF'] . '?page=received&payment_id=' . urlencode($payment_id));
+        
+
+        header('Location: pp_stock_check.php?payment_id=' . urlencode($payment_id)); // another file
         exit();
     }
 
-    if ($action === 'No-Not Received Yet') {
-        header('Location: payment_processor_dashboard.php'); // another file
-        exit();
-    }
+   
 }
 ?>
 
@@ -88,28 +87,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
     <form method="POST">
         <input type="hidden" name="payment_id" value="<?= htmlentities($payment['payment_id']) ?>">
-        <input type="submit" name="action" value="No-Not Received Yet">
+        
         <input type="submit" name="action" value="No-Failed">
         <input type="submit" name="action" value="Yes-Received">
     </form>
 
 <?php elseif ($page === 'failed'): ?>
     <h1>Payment Failed</h1>
-    <p>This payment (ID <?= htmlentities($_GET['payment_id']) ?>) will be reviewed or deleted.</p>
-    <a href="<?= $_SERVER['PHP_SELF'] ?>">Back to Verify</a>
+    <p>This payment (ID <?= htmlentities($_GET['payment_id']) ?>)  should be deleted after 48 hours of funds not reflecting on business account.</p>
+    <br>
+    
+    
+    <a href="pp_delete.php?id=<?php echo $row['payment_id']; // attaches the payment ID?>"  
+                onclick="return confirm('Are you sure you want to delete this payment?');">
+                Delete Pending Payment</a>
+    
     <a href="payment_processor_dashboard.php">Back to Home</a>
 
 
-<?php elseif ($page === 'received'): ?>
-    <h1>Payment Received</h1>
-    <p>Now checking stock for payment #<?= htmlentities($_GET['payment_id']) ?>...</p>
-    <a href="<?= $_SERVER['PHP_SELF'] ?>">Back to Verify</a>
-    <a href="payment_processor_dashboard.php">Back to Home</a>
+
 
 
 <?php else: ?>
     <h1>Unknown page</h1>
-    <a href="<?= $_SERVER['PHP_SELF'] ?>">Go back</a>
+   
     <a href="payment_processor_dashboard.php">Back to Home</a>
 
 <?php endif; ?>
