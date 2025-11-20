@@ -179,7 +179,11 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <option value="Pending">Pending</option>
             <option value="Cancelled">Cancelled</option>
         </select>
-        <input type="submit" name="action" value="Export">
+        
+        <form method="post" action="export_report.php">
+    <input type="submit" name="action" >Export PDF</button>
+</form>
+        
         <br><br>
 
 
